@@ -1,5 +1,6 @@
 Changes
 Makefile.PL
 MANIFEST
+README
 lib/Devel/TraceVars.pm
 t/distribution.t
