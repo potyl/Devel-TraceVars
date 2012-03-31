@@ -2,25 +2,26 @@
 
 Devel::TraceVars - Print each line of code with variables evaluated
 
-=head1  SYNOPSIS
-TraceVars
-perl -d:TraceVars[+MODE[OPTIONS]] program [arguments]
+=head1 SYNOPSIS
 
-Where MODE can be C<modules> of C<custom>.
+    $ perl -d:TraceVars[+MODE[OPTIONS]] program [arguments]
+
+Where MODE can be C<modules> or C<custom>.
 
 If C<modules> mode is selected then the output will only include the lines
-that are provided by the given modules. 
-Modules can be added by separating them by commas C<,>.
-By default the module C<main> is assumed to be included.
-Optionally, the wild card C<*> can be used to indicate any module that matches the given pattern.
-Thus, the entry C<Net::SSH::*> will match all modules that start with Net::SSH.
+that are provided by the given modules.
+
+Modules can be added by separating them by commas C<,>. By default the module
+C<main> is assumed to be included. Optionally, the wildcard C<*> can be used
+to indicate any module that matches the given pattern. Thus, the entry
+C<Net::SSH::*> will match all modules that start with Net::SSH.
 
 B<NOTE:> The wild card handling works only if it's used as the last character. 
 Using the following pattern I<Net::*::Perl> isn't supported yet.
 
-If C<non-cpan> is used then output will exclude all files that are provided by CPAN.
-For the moment a module is considered to be provided by CPAN if the module is loaded
-from the Perl include path as designed by $Config{installarchlib}.
+If C<non-cpan> is used then output will exclude all files that are provided by
+CPAN. At present, a module is considered to be provided by CPAN if the module
+is loaded from the Perl include path as designated by $Config{installarchlib}.
 
 If no mode is specified then all output lines are printed.
 
@@ -32,25 +33,27 @@ Prints all lines.
 
 C<perl -d:TraceVars+modules script.pl>
 
-Defaults to print only all lines of the package C<main> which usually means all lines in the main program. 
-The package C<main> is the default package used by perl when no package is specified in the code.
+Defaults to print only all lines of the package C<main> which usually means all
+lines in the main program. The package C<main> is the default package used by
+perl when no package is specified in the code.
 
 C<perl -d:TraceVars+modules,Net::SSH,Digest::* script.pl>
 
-Prints only information from the module C<Net::SSH> and from any module who's name starts with C<Digest>.
+Prints only information from the module C<Net::SSH>, and from any module whose
+name starts with C<Digest>.
 
 C<perl -d:TraceVars+noncpan script.pl>
 
-Prints only lines that are provided by  perl files that aren't stored in the default folder where
-all CPAN modules are installed.
+Prints only lines that are provided by  perl files that aren't stored in the
+default folder where all CPAN modules are installed.
 
 =head1 DESCRIPTION
 
 If you run your program with C<perl -d:TraceVars program>, this module
-will print the current line of code being executed to standard error 
-just before each line is executed.
-The contents of all scalar variables will be evaluated and displayed as well.
-All leading and trailing spaces will be removed from each line.
+will print the current line of code being executed to standard error
+just before each line is executed. The contents of all scalar variables will
+be evaluated and displayed as well. All leading and trailing spaces will be
+removed from each line.
 
 =cut
 
@@ -182,14 +185,23 @@ sub DB::DB {
 }
 
 
-=head2 evaluate
+=head2 evaluate($package, $variable)
 
 Tries to evaluate the content of the given variable.
 
-	param $package the package's scope where the variable was used.
-	param $variable the variable name to evaluate.
+=over 4
 
-	return the variable's content.
+=item * $package 
+
+The package's scope where the variable was used.
+
+=item * $variable
+
+The variable name to evaluate.
+
+=back
+
+Returns the variable's content.
 
 =cut
 
@@ -243,6 +255,7 @@ L<Devel::Trace>.
 
 =head1 AUTHOR
 
-Emmanuel Rodriguez E<lt>potyl@cpan.orgE<gt> based on a shameless copy of C<Devel::Trace>
+Emmanuel Rodriguez E<lt>potyl@cpan.orgE<gt> based on a shameless copy of
+C<Devel::Trace> .
 
 =cut
